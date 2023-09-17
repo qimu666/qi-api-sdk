@@ -1,6 +1,8 @@
 package icu.qimuu.qiapisdk.config;
 
 import icu.qimuu.qiapisdk.client.QiApiClient;
+import icu.qimuu.qiapisdk.service.ApiService;
+import icu.qimuu.qiapisdk.service.impi.ApiServiceImpl;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -31,5 +33,12 @@ public class QiApiClientConfig {
     @Bean
     public QiApiClient qiApiClient() {
         return new QiApiClient(accessKey, secretKey);
+    }
+
+    @Bean
+    public ApiService apiService() {
+        ApiServiceImpl apiService = new ApiServiceImpl();
+        apiService.setQiApiClient(new QiApiClient(accessKey, secretKey));
+        return apiService;
     }
 }
