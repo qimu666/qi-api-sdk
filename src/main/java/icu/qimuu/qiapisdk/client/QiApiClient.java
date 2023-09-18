@@ -24,5 +24,4 @@ public class QiApiClient {
      */
     private String secretKey;
 
-    public static final String GATEWAY_HOST = "http://localhost:8090/api";
 }

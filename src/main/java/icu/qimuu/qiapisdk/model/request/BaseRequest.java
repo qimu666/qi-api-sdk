@@ -1,14 +1,12 @@
 package icu.qimuu.qiapisdk.model.request;
 
 import cn.hutool.crypto.SecureUtil;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import icu.qimuu.qiapisdk.client.QiApiClient;
 import icu.qimuu.qiapisdk.model.RequestMethod;
 import icu.qimuu.qiapisdk.model.response.BaseResponse;
 import icu.qimuu.qiapisdk.utils.SignUtils;
-import lombok.Data;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,23 +16,16 @@ import java.util.Map;
  * @Version: 1.0
  * @Description: 基本api请求
  */
-@Accessors(chain = true)
-@Data
-public abstract class BaseRequest<T extends BaseResponse> implements Serializable {
-    private static final long serialVersionUID = -4766915659779847060L;
-    private String path;
-    /**
-     * 方法
-     */
-    private String method;
+public interface BaseRequest<T extends BaseResponse> {
 
     /**
      * 获取请求头
      *
-     * @param body 请求体
+     * @param body        请求体
+     * @param qiApiClient qi api客户端
      * @return {@link Map}<{@link String}, {@link String}>
      */
-    public Map<String, String> getHeaders(String body, QiApiClient qiApiClient) {
+    default Map<String, String> getHeaders(String body, QiApiClient qiApiClient) {
         Map<String, String> hashMap = new HashMap<>(4);
         hashMap.put("accessKey", qiApiClient.getAccessKey());
         String encodedBody = SecureUtil.md5(body);
@@ -49,31 +40,27 @@ public abstract class BaseRequest<T extends BaseResponse> implements Serializabl
      *
      * @return {@link RequestMethod}
      */
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
+    String getMethod();
 
     /**
      * 获取路径
      *
      * @return {@link String}
      */
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
+    String getPath();
 
     /**
      * 获取响应类
      *
      * @return {@link Class}<{@link T}>
      */
-    public abstract Class<T> getResponseClass();
+    Class<T> getResponseClass();
+
+    /**
+     * 获取请求参数
+     *
+     * @return {@link Map}<{@link String}, {@link Object}>
+     */
+    @JsonAnyGetter
+    Map<String, Object> getRequestParams();
 }

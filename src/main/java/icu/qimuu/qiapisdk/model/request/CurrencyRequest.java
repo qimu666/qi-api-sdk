@@ -1,8 +1,11 @@
 package icu.qimuu.qiapisdk.model.request;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import icu.qimuu.qiapisdk.model.response.BaseResponse;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: QiMu
@@ -11,27 +14,56 @@ import lombok.EqualsAndHashCode;
  * @Description:
  */
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class CurrencyRequest extends BaseRequest<BaseResponse> {
-    private static final long serialVersionUID = 4408575981700377560L;
-    private String name;
+
+public class CurrencyRequest implements BaseRequest<BaseResponse> {
+
+    private String method;
+    private String path;
+
+    private Map<String, Object> requestParams = new HashMap<>();
 
     @Override
-    public void setMethod(String method) {
-        super.setMethod(method);
+    public Map<String, Object> getRequestParams() {
+        return requestParams;
     }
 
+    public void setRequestParams(String params) {
+        this.requestParams = new Gson().fromJson(params, new TypeToken<Map<String, Object>>() {
+        }.getType());
+    }
 
-    @Override
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     public void setPath(String path) {
-        super.setPath(path);
+        this.path = path;
+    }
+
+    /**
+     * get方法
+     *
+     * @return {@link String}
+     */
+    @Override
+    public String getMethod() {
+        return method;
+    }
+
+    /**
+     * 获取路径
+     *
+     * @return {@link String}
+     */
+    @Override
+    public String getPath() {
+        return path;
     }
 
     /**
      * 获取响应类
      *
-     * @return {@link Class}<{@link CurrencyRequest}>
+     * @return {@link Class}<{@link BaseResponse}>
      */
     @Override
     public Class<BaseResponse> getResponseClass() {

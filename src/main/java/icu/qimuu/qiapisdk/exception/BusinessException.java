@@ -12,11 +12,15 @@ import icu.qimuu.qiapisdk.common.ErrorCode;
 public class BusinessException extends Exception {
 
     private static final long serialVersionUID = 2942420535500634982L;
-    private final int code;
+    private int code;
 
     public BusinessException(int code, String message) {
         super(message);
         this.code = code;
+    }
+
+    public BusinessException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     public BusinessException(ErrorCode errorCode) {

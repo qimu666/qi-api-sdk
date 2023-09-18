@@ -2,9 +2,8 @@ package icu.qimuu.qiapisdk.model.request;
 
 import icu.qimuu.qiapisdk.model.RequestMethod;
 import icu.qimuu.qiapisdk.model.response.BaseResponse;
-import icu.qimuu.qiapisdk.model.response.UserResponse;
+import icu.qimuu.qiapisdk.model.response.PoisonousChickenSoupResponse;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,24 +12,11 @@ import java.util.Map;
  * @Version: 1.0
  * @Description:
  */
-public class GetUserRequest implements BaseRequest<UserResponse> {
-    private Map<String, Object> requestParams = new HashMap<>();
-    /**
-     * 名称
-     */
-    private String name;
+public class PoisonousChickenSoupRequest implements BaseRequest<PoisonousChickenSoupResponse> {
 
     @Override
     public String getPath() {
-        return "/name/json";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return "/name/poisonousChickenSoup";
     }
 
     /**
@@ -39,8 +25,8 @@ public class GetUserRequest implements BaseRequest<UserResponse> {
      * @return {@link Class}<{@link BaseResponse}>
      */
     @Override
-    public Class<UserResponse> getResponseClass() {
-        return UserResponse.class;
+    public Class<PoisonousChickenSoupResponse> getResponseClass() {
+        return PoisonousChickenSoupResponse.class;
     }
 
     /**
@@ -50,7 +36,7 @@ public class GetUserRequest implements BaseRequest<UserResponse> {
      */
     @Override
     public Map<String, Object> getRequestParams() {
-        return requestParams;
+        return null;
     }
 
     /**
@@ -59,11 +45,11 @@ public class GetUserRequest implements BaseRequest<UserResponse> {
      * @param requestParams 请求参数
      */
     public void setRequestParams(Map<String, Object> requestParams) {
-        this.requestParams = requestParams;
+
     }
 
     @Override
     public String getMethod() {
-        return RequestMethod.POST.getValue();
+        return RequestMethod.GET.getValue();
     }
 }
