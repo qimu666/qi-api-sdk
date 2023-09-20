@@ -1,10 +1,9 @@
 package icu.qimuu.qiapisdk.model.request;
 
-import icu.qimuu.qiapisdk.model.RequestMethod;
-import icu.qimuu.qiapisdk.model.response.BaseResponse;
+import icu.qimuu.qiapisdk.model.enums.RequestMethodEnum;
+import icu.qimuu.qiapisdk.model.params.PoisonousChickenSoupParams;
 import icu.qimuu.qiapisdk.model.response.PoisonousChickenSoupResponse;
-
-import java.util.Map;
+import lombok.experimental.Accessors;
 
 /**
  * @Author: QiMu
@@ -12,44 +11,26 @@ import java.util.Map;
  * @Version: 1.0
  * @Description:
  */
-public class PoisonousChickenSoupRequest implements BaseRequest<PoisonousChickenSoupResponse> {
+@Accessors(chain = true)
+public class PoisonousChickenSoupRequest extends BaseRequest<PoisonousChickenSoupParams, PoisonousChickenSoupResponse> {
 
     @Override
     public String getPath() {
-        return "/name/poisonousChickenSoup";
+        return "/poisonousChickenSoup";
     }
 
     /**
      * 获取响应类
      *
-     * @return {@link Class}<{@link BaseResponse}>
+     * @return {@link Class}<{@link PoisonousChickenSoupResponse}>
      */
     @Override
     public Class<PoisonousChickenSoupResponse> getResponseClass() {
         return PoisonousChickenSoupResponse.class;
     }
 
-    /**
-     * 获取请求参数
-     *
-     * @return {@link Map}<{@link String}, {@link Object}>
-     */
-    @Override
-    public Map<String, Object> getRequestParams() {
-        return null;
-    }
-
-    /**
-     * 设置请求参数
-     *
-     * @param requestParams 请求参数
-     */
-    public void setRequestParams(Map<String, Object> requestParams) {
-
-    }
-
     @Override
     public String getMethod() {
-        return RequestMethod.GET.getValue();
+        return RequestMethodEnum.GET.getValue();
     }
 }

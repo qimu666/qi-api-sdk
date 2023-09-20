@@ -20,7 +20,7 @@ public class QiApiClient {
     private String accessKey;
 
     /**
-     * 秘密密钥
+     * 密钥
      */
     private String secretKey;
 

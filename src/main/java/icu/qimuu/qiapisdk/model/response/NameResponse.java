@@ -5,14 +5,13 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @Author: QiMu
- * @Date: 2023年09月17日 16:31
+ * @Date: 2023年09月19日 11:26
  * @Version: 1.0
  * @Description:
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserResponse extends BaseResponse {
+public class NameResponse extends BaseResponse {
+    private static final long serialVersionUID = -1038984103811824271L;
     private String name;
-    private static final long serialVersionUID = -6467312483425078539L;
-    private String age;
 }

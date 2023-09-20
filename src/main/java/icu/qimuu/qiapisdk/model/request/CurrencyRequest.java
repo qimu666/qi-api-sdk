@@ -1,11 +1,7 @@
 package icu.qimuu.qiapisdk.model.request;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import icu.qimuu.qiapisdk.model.response.BaseResponse;
-
-import java.util.HashMap;
-import java.util.Map;
+import lombok.experimental.Accessors;
 
 /**
  * @Author: QiMu
@@ -13,32 +9,10 @@ import java.util.Map;
  * @Version: 1.0
  * @Description:
  */
-
-
-public class CurrencyRequest implements BaseRequest<BaseResponse> {
-
+@Accessors(chain = true)
+public class CurrencyRequest extends BaseRequest<Object, BaseResponse> {
     private String method;
     private String path;
-
-    private Map<String, Object> requestParams = new HashMap<>();
-
-    @Override
-    public Map<String, Object> getRequestParams() {
-        return requestParams;
-    }
-
-    public void setRequestParams(String params) {
-        this.requestParams = new Gson().fromJson(params, new TypeToken<Map<String, Object>>() {
-        }.getType());
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 
     /**
      * get方法
@@ -50,6 +24,10 @@ public class CurrencyRequest implements BaseRequest<BaseResponse> {
         return method;
     }
 
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     /**
      * 获取路径
      *
@@ -58,6 +36,10 @@ public class CurrencyRequest implements BaseRequest<BaseResponse> {
     @Override
     public String getPath() {
         return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     /**

@@ -1,8 +1,6 @@
 package icu.qimuu.qiapisdk.exception;
 
 
-import icu.qimuu.qiapisdk.common.ErrorCode;
-
 /**
  * @Author: QiMu
  * @Date: 2023/09/15 09:31:43

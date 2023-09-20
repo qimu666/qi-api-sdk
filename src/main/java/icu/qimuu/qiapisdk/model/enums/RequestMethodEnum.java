@@ -1,4 +1,4 @@
-package icu.qimuu.qiapisdk.model;
+package icu.qimuu.qiapisdk.model.enums;
 
 /**
  * @Author: QiMu
@@ -6,7 +6,7 @@ package icu.qimuu.qiapisdk.model;
  * @Version: 1.0
  * @Description:
  */
-public enum RequestMethod {
+public enum RequestMethodEnum {
     /**
      * GET请求
      */
@@ -15,7 +15,7 @@ public enum RequestMethod {
     private final String text;
     private final String value;
 
-    RequestMethod(String text, String value) {
+    RequestMethodEnum(String text, String value) {
         this.text = text;
         this.value = value;
     }

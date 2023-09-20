@@ -1,4 +1,4 @@
-package icu.qimuu.qiapisdk.common;
+package icu.qimuu.qiapisdk.exception;
 
 /**
  * 同一返回错误码
