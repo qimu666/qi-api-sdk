@@ -22,8 +22,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-import static icu.qimuu.qiapisdk.constant.QiApiConstant.GATEWAY_HOST;
-
 /**
  * @Author: QiMu
  * @Date: 2023年09月19日 11:03
@@ -34,6 +32,10 @@ import static icu.qimuu.qiapisdk.constant.QiApiConstant.GATEWAY_HOST;
 @Data
 public abstract class BaseService implements ApiService {
     private QiApiClient qiApiClient;
+    /**
+     * 网关HOST
+     */
+    private String gatewayHost = "https://gateway.qimuu.icu/api";
 
     /**
      * 检查配置
@@ -86,8 +88,8 @@ public abstract class BaseService implements ApiService {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "请求路径不存在");
         }
 
-        if (path.startsWith(GATEWAY_HOST)) {
-            path = path.substring(GATEWAY_HOST.length());
+        if (path.startsWith(gatewayHost)) {
+            path = path.substring(gatewayHost.length());
         }
         log.info("请求方法：{}，请求路径：{}，请求参数：{}", method, path, request.getRequestParams());
         HttpRequest httpRequest;
@@ -97,7 +99,7 @@ public abstract class BaseService implements ApiService {
                 break;
             }
             case "POST": {
-                httpRequest = HttpRequest.post(GATEWAY_HOST + path);
+                httpRequest = HttpRequest.post(gatewayHost + path);
                 break;
             }
             default: {
@@ -154,7 +156,7 @@ public abstract class BaseService implements ApiService {
      * @return {@link String}
      */
     private <O, T extends BaseResponse> String splicingGetRequest(BaseRequest<O, T> request, String path) {
-        StringBuilder urlBuilder = new StringBuilder(GATEWAY_HOST);
+        StringBuilder urlBuilder = new StringBuilder(gatewayHost);
         // urlBuilder最后是/结尾且path以/开头的情况下，去掉urlBuilder结尾的/
         if (urlBuilder.toString().endsWith("/") && path.startsWith("/")) {
             urlBuilder.setLength(urlBuilder.length() - 1);

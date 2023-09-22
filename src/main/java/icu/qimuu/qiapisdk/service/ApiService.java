@@ -26,7 +26,7 @@ public interface ApiService {
     PoisonousChickenSoupResponse getPoisonousChickenSoup() throws BusinessException;
 
     /**
-     * 喝毒鸡汤
+     * 随机毒鸡汤
      *
      * @param qiApiClient qi api客户端
      * @return {@link PoisonousChickenSoupResponse}
@@ -36,7 +36,6 @@ public interface ApiService {
 
     /**
      * 获取随机壁纸
-     * 随机毒鸡汤
      *
      * @param request 要求
      * @return {@link RandomWallpaperResponse}
@@ -45,14 +44,14 @@ public interface ApiService {
     RandomWallpaperResponse getRandomWallpaper(RandomWallpaperRequest request) throws BusinessException;
 
     /**
-     * 喝毒鸡汤
+     * 获取随机壁纸
      *
      * @param qiApiClient qi api客户端
      * @param request     要求
      * @return {@link RandomWallpaperResponse}
      * @throws BusinessException 业务异常
      */
-    RandomWallpaperResponse getPoisonousChickenSoup(QiApiClient qiApiClient, RandomWallpaperRequest request) throws BusinessException;
+    RandomWallpaperResponse getRandomWallpaper(QiApiClient qiApiClient, RandomWallpaperRequest request) throws BusinessException;
 
     /**
      * 请求

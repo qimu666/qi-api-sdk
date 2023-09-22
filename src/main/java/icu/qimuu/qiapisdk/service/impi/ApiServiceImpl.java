@@ -1,13 +1,13 @@
 package icu.qimuu.qiapisdk.service.impi;
 
 import icu.qimuu.qiapisdk.client.QiApiClient;
-import icu.qimuu.qiapisdk.service.BaseService;
 import icu.qimuu.qiapisdk.exception.BusinessException;
 import icu.qimuu.qiapisdk.model.request.PoisonousChickenSoupRequest;
 import icu.qimuu.qiapisdk.model.request.RandomWallpaperRequest;
 import icu.qimuu.qiapisdk.model.response.PoisonousChickenSoupResponse;
 import icu.qimuu.qiapisdk.model.response.RandomWallpaperResponse;
 import icu.qimuu.qiapisdk.service.ApiService;
+import icu.qimuu.qiapisdk.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -38,7 +38,7 @@ public class ApiServiceImpl extends BaseService implements ApiService {
     }
 
     @Override
-    public RandomWallpaperResponse getPoisonousChickenSoup(QiApiClient qiApiClient, RandomWallpaperRequest request) throws BusinessException {
+    public RandomWallpaperResponse getRandomWallpaper(QiApiClient qiApiClient, RandomWallpaperRequest request) throws BusinessException {
         return request(qiApiClient, request);
     }
 }
