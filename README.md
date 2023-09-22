@@ -32,6 +32,7 @@ qiapisdk
 
 - **[Qi-API 接口开放平台 🔗](https://api.qimuu.icu/)**
 - **[Qi-API-DOC 开发者文档 📖](https://doc.qimuu.icu/)**
+- **[Qi-API-SDK-demo ✔️](https://github.com/qimu666/qi-api-sdk-demo)**
 
 ###  快速开始 🚀
 
