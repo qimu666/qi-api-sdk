@@ -11,8 +11,6 @@ import cn.hutool.json.JSONUtil;
  */
 public class SignUtils {
     public static String getSign(String body, String secretKey) {
-        String s = MD5.create().digestHex(JSONUtil.toJsonStr(body) + '.' + secretKey);
-        System.err.println(s);
-        return s;
+        return MD5.create().digestHex(JSONUtil.toJsonStr(body) + '.' + secretKey);
     }
 }

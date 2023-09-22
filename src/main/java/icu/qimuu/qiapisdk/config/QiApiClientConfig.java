@@ -1,7 +1,10 @@
 package icu.qimuu.qiapisdk.config;
 
 import icu.qimuu.qiapisdk.client.QiApiClient;
+import icu.qimuu.qiapisdk.service.ApiService;
+import icu.qimuu.qiapisdk.service.impi.ApiServiceImpl;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,8 +31,23 @@ public class QiApiClientConfig {
      */
     private String secretKey;
 
+    /**
+     * 网关
+     */
+    private String host;
+
     @Bean
     public QiApiClient qiApiClient() {
         return new QiApiClient(accessKey, secretKey);
+    }
+
+    @Bean
+    public ApiService apiService() {
+        ApiServiceImpl apiService = new ApiServiceImpl();
+        apiService.setQiApiClient(new QiApiClient(accessKey, secretKey));
+        if (StringUtils.isNotBlank(host)) {
+            apiService.setGatewayHost(host);
+        }
+        return apiService;
     }
 }
