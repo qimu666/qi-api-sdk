@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import icu.qimuu.qiapisdk.model.enums.RequestMethodEnum;
-import icu.qimuu.qiapisdk.model.response.BaseResponse;
-import lombok.experimental.Accessors;
+import icu.qimuu.qiapisdk.model.response.ResultResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +16,7 @@ import java.util.Map;
  * @Version: 1.0
  * @Description: 基本api请求
  */
-public abstract class BaseRequest<O, T extends BaseResponse> {
+public abstract class BaseRequest<O, T extends ResultResponse> {
     private Map<String, Object> requestParams = new HashMap<>();
 
     /**

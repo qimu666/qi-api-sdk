@@ -1,8 +1,8 @@
 package icu.qimuu.qiapisdk.model.request;
 
 import icu.qimuu.qiapisdk.model.enums.RequestMethodEnum;
-import icu.qimuu.qiapisdk.model.params.RandomWallpaperParams;
-import icu.qimuu.qiapisdk.model.response.RandomWallpaperResponse;
+import icu.qimuu.qiapisdk.model.params.HoroscopeParams;
+import icu.qimuu.qiapisdk.model.response.NameResponse;
 import icu.qimuu.qiapisdk.model.response.ResultResponse;
 import lombok.experimental.Accessors;
 
@@ -10,23 +10,24 @@ import lombok.experimental.Accessors;
  * @Author: QiMu
  * @Date: 2023年09月17日 08:38
  * @Version: 1.0
- * @Description:
+ * @Description: 随机情话
  */
 @Accessors(chain = true)
-public class RandomWallpaperRequest extends BaseRequest<RandomWallpaperParams, RandomWallpaperResponse> {
+public class HoroscopeRequest extends BaseRequest<HoroscopeParams, ResultResponse> {
+
     @Override
     public String getPath() {
-        return "/randomWallpaper";
+        return "/horoscope";
     }
 
     /**
      * 获取响应类
      *
-     * @return {@link Class}<{@link ResultResponse}>
+     * @return {@link Class}<{@link NameResponse}>
      */
     @Override
-    public Class<RandomWallpaperResponse> getResponseClass() {
-        return RandomWallpaperResponse.class;
+    public Class<ResultResponse> getResponseClass() {
+        return ResultResponse.class;
     }
 
 

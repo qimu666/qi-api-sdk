@@ -8,11 +8,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import icu.qimuu.qiapisdk.client.QiApiClient;
-import icu.qimuu.qiapisdk.exception.BusinessException;
+import icu.qimuu.qiapisdk.exception.ApiException;
 import icu.qimuu.qiapisdk.exception.ErrorCode;
 import icu.qimuu.qiapisdk.exception.ErrorResponse;
 import icu.qimuu.qiapisdk.model.request.BaseRequest;
-import icu.qimuu.qiapisdk.model.response.BaseResponse;
+import icu.qimuu.qiapisdk.model.response.ResultResponse;
 import icu.qimuu.qiapisdk.utils.SignUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * @Author: QiMu
@@ -41,11 +42,11 @@ public abstract class BaseService implements ApiService {
      * 检查配置
      *
      * @param qiApiClient qi api客户端
-     * @throws BusinessException 业务异常
+     * @throws ApiException 业务异常
      */
-    public void checkConfig(QiApiClient qiApiClient) throws BusinessException {
+    public void checkConfig(QiApiClient qiApiClient) throws ApiException {
         if (qiApiClient == null && this.getQiApiClient() == null) {
-            throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "请先配置密钥AccessKey/SecretKey");
+            throw new ApiException(ErrorCode.NO_AUTH_ERROR, "请先配置密钥AccessKey/SecretKey");
         }
         if (qiApiClient != null && !StringUtils.isAnyBlank(qiApiClient.getAccessKey(), qiApiClient.getSecretKey())) {
             this.setQiApiClient(qiApiClient);
@@ -57,13 +58,13 @@ public abstract class BaseService implements ApiService {
      *
      * @param request 请求
      * @return {@link HttpResponse}
-     * @throws BusinessException 业务异常
+     * @throws ApiException 业务异常
      */
-    private <O, T extends BaseResponse> HttpResponse doRequest(BaseRequest<O, T> request) throws BusinessException {
+    private <O, T extends ResultResponse> HttpResponse doRequest(BaseRequest<O, T> request) throws ApiException {
         try (HttpResponse httpResponse = getHttpRequestByRequestMethod(request).execute()) {
             return httpResponse;
         } catch (Exception e) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR, e.getMessage());
+            throw new ApiException(ErrorCode.OPERATION_ERROR, e.getMessage());
         }
     }
 
@@ -72,20 +73,20 @@ public abstract class BaseService implements ApiService {
      *
      * @param request 要求
      * @return {@link HttpResponse}
-     * @throws BusinessException 业务异常
+     * @throws ApiException 业务异常
      */
-    private <O, T extends BaseResponse> HttpRequest getHttpRequestByRequestMethod(BaseRequest<O, T> request) throws BusinessException {
+    private <O, T extends ResultResponse> HttpRequest getHttpRequestByRequestMethod(BaseRequest<O, T> request) throws ApiException {
         if (ObjectUtils.isEmpty(request)) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR, "请求参数错误");
+            throw new ApiException(ErrorCode.OPERATION_ERROR, "请求参数错误");
         }
         String path = request.getPath().trim();
         String method = request.getMethod().trim().toUpperCase();
 
         if (ObjectUtils.isEmpty(method)) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR, "请求方法不存在");
+            throw new ApiException(ErrorCode.OPERATION_ERROR, "请求方法不存在");
         }
         if (StringUtils.isBlank(path)) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR, "请求路径不存在");
+            throw new ApiException(ErrorCode.OPERATION_ERROR, "请求路径不存在");
         }
 
         if (path.startsWith(gatewayHost)) {
@@ -103,7 +104,7 @@ public abstract class BaseService implements ApiService {
                 break;
             }
             default: {
-                throw new BusinessException(ErrorCode.OPERATION_ERROR, "不支持该请求");
+                throw new ApiException(ErrorCode.OPERATION_ERROR, "不支持该请求");
             }
         }
         return httpRequest.addHeaders(getHeaders(JSONUtil.toJsonStr(request), qiApiClient)).body(JSONUtil.toJsonStr(request.getRequestParams()));
@@ -114,18 +115,18 @@ public abstract class BaseService implements ApiService {
      *
      * @param request 要求
      * @return {@link T}
-     * @throws BusinessException 业务异常
+     * @throws ApiException 业务异常
      */
-    public <O, T extends BaseResponse> T res(BaseRequest<O, T> request) throws BusinessException {
+    public <O, T extends ResultResponse> T res(BaseRequest<O, T> request) throws ApiException {
         if (qiApiClient == null || StringUtils.isAnyBlank(qiApiClient.getAccessKey(), qiApiClient.getSecretKey())) {
-            throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "请先配置密钥AccessKey/SecretKey");
+            throw new ApiException(ErrorCode.NO_AUTH_ERROR, "请先配置密钥AccessKey/SecretKey");
         }
         T rsp;
         try {
             Class<T> clazz = request.getResponseClass();
             rsp = clazz.newInstance();
         } catch (Exception e) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR, e.getMessage());
+            throw new ApiException(ErrorCode.OPERATION_ERROR, e.getMessage());
         }
         HttpResponse httpResponse = doRequest(request);
         String body = httpResponse.body();
@@ -155,7 +156,7 @@ public abstract class BaseService implements ApiService {
      * @param path    路径
      * @return {@link String}
      */
-    private <O, T extends BaseResponse> String splicingGetRequest(BaseRequest<O, T> request, String path) {
+    private <O, T extends ResultResponse> String splicingGetRequest(BaseRequest<O, T> request, String path) {
         StringBuilder urlBuilder = new StringBuilder(gatewayHost);
         // urlBuilder最后是/结尾且path以/开头的情况下，去掉urlBuilder结尾的/
         if (urlBuilder.toString().endsWith("/") && path.startsWith("/")) {
@@ -194,16 +195,16 @@ public abstract class BaseService implements ApiService {
     }
 
     @Override
-    public <O, T extends BaseResponse> T request(BaseRequest<O, T> request) throws BusinessException {
+    public <O, T extends ResultResponse> T request(BaseRequest<O, T> request) throws ApiException {
         try {
             return res(request);
         } catch (Exception e) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR, e.getMessage());
+            throw new ApiException(ErrorCode.OPERATION_ERROR, e.getMessage());
         }
     }
 
     @Override
-    public <O, T extends BaseResponse> T request(QiApiClient qiApiClient, BaseRequest<O, T> request) throws BusinessException {
+    public <O, T extends ResultResponse> T request(QiApiClient qiApiClient, BaseRequest<O, T> request) throws ApiException {
         checkConfig(qiApiClient);
         return request(request);
     }

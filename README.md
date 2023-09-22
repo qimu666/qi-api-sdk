@@ -43,7 +43,7 @@ qiapisdk
 <dependency>
    <groupId>icu.qimuu</groupId>
    <artifactId>qi-api-sdk</artifactId>
-   <version>0.0.2</version>
+   <version>0.0.3</version>
 </dependency>   
 ```
 
@@ -111,7 +111,7 @@ qiapisdk
 try {
     PoisonousChickenSoupResponse poisonousChickenSoup = apiService.getPoisonousChickenSoup();
     System.out.println("poisonousChickenSoup = " + poisonousChickenSoup);
-} catch (BusinessException e) {
+} catch (ApiException e) {
   log.error(e.getMessage());
 }
 ```
@@ -122,7 +122,7 @@ try {
     QiApiClient qiApiClient = new QiApiClient("你的 accessKey", "你的 secretKey");
     PoisonousChickenSoupResponse poisonousChickenSoup = apiService.getPoisonousChickenSoup(qiApiClient);
     System.out.println("poisonousChickenSoup = " + poisonousChickenSoup);
-} catch (BusinessException e) {
+} catch (ApiException e) {
     log.error(e.getMessage());
 }
 ```
@@ -143,8 +143,8 @@ public BaseResponse<PoisonousChickenSoupResponse> getPoisonousChickenSoupNotSetK
     PoisonousChickenSoupResponse poisonousChickenSoup = null;
     try {
         poisonousChickenSoup = apiService.getPoisonousChickenSoup();
-    } catch (BusinessException e) {
-        throw new BusinessException(e.getCode(), e.getMessage());
+    } catch (ApiException e) {
+        throw new ApiException(e.getCode(), e.getMessage());
     }
     return ResultUtils.success(poisonousChickenSoup);
 }

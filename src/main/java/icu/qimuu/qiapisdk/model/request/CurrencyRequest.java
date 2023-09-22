@@ -1,6 +1,6 @@
 package icu.qimuu.qiapisdk.model.request;
 
-import icu.qimuu.qiapisdk.model.response.BaseResponse;
+import icu.qimuu.qiapisdk.model.response.ResultResponse;
 import lombok.experimental.Accessors;
 
 /**
@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
  * @Description:
  */
 @Accessors(chain = true)
-public class CurrencyRequest extends BaseRequest<Object, BaseResponse> {
+public class CurrencyRequest extends BaseRequest<Object, ResultResponse> {
     private String method;
     private String path;
 
@@ -45,10 +45,10 @@ public class CurrencyRequest extends BaseRequest<Object, BaseResponse> {
     /**
      * 获取响应类
      *
-     * @return {@link Class}<{@link BaseResponse}>
+     * @return {@link Class}<{@link ResultResponse}>
      */
     @Override
-    public Class<BaseResponse> getResponseClass() {
-        return BaseResponse.class;
+    public Class<ResultResponse> getResponseClass() {
+        return ResultResponse.class;
     }
 }

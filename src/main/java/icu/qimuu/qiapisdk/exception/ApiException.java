@@ -7,26 +7,26 @@ package icu.qimuu.qiapisdk.exception;
  * @Version: 1.0
  * @Description: 自定义异常类
  */
-public class BusinessException extends Exception {
+public class ApiException extends Exception {
 
     private static final long serialVersionUID = 2942420535500634982L;
     private int code;
 
-    public BusinessException(int code, String message) {
+    public ApiException(int code, String message) {
         super(message);
         this.code = code;
     }
 
-    public BusinessException(String message, Throwable cause) {
+    public ApiException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public BusinessException(ErrorCode errorCode) {
+    public ApiException(ErrorCode errorCode) {
         super(errorCode.getMessage());
         this.code = errorCode.getCode();
     }
 
-    public BusinessException(ErrorCode errorCode, String message) {
+    public ApiException(ErrorCode errorCode, String message) {
         super(message);
         this.code = errorCode.getCode();
     }

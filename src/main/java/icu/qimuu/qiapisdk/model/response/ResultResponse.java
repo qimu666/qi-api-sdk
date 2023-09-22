@@ -16,7 +16,7 @@ import java.util.Map;
  */
 @Data
 @NoArgsConstructor
-public class BaseResponse implements Serializable {
+public class ResultResponse implements Serializable {
     private static final long serialVersionUID = -6486005224268968744L;
     private Map<String, Object> data = new HashMap<>();
 
