@@ -71,7 +71,7 @@ public interface ApiService {
      * @return {@link RandomWallpaperResponse}
      * @throws ApiException 业务异常
      */
-    RandomWallpaperResponse getPoisonousChickenSoup(QiApiClient qiApiClient, RandomWallpaperRequest request) throws ApiException;
+    RandomWallpaperResponse getRandomWallpaper(QiApiClient qiApiClient, RandomWallpaperRequest request) throws ApiException;
 
     /**
      * 随意情话
@@ -85,11 +85,10 @@ public interface ApiService {
      * 随意情话
      *
      * @param qiApiClient qi api客户端
-     * @param request     要求
      * @return {@link LoveResponse}
      * @throws ApiException 业务异常
      */
-    LoveResponse randomLoveTalk(QiApiClient qiApiClient, LoveRequest request) throws ApiException;
+    LoveResponse randomLoveTalk(QiApiClient qiApiClient) throws ApiException;
 
     /**
      * 星座运势

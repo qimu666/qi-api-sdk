@@ -39,7 +39,7 @@ public class ApiServiceImpl extends BaseService implements ApiService {
     }
 
     @Override
-    public RandomWallpaperResponse getPoisonousChickenSoup(QiApiClient qiApiClient, RandomWallpaperRequest request) throws ApiException {
+    public RandomWallpaperResponse getRandomWallpaper(QiApiClient qiApiClient, RandomWallpaperRequest request) throws ApiException {
         return request(qiApiClient, request);
     }
 
@@ -50,7 +50,8 @@ public class ApiServiceImpl extends BaseService implements ApiService {
     }
 
     @Override
-    public LoveResponse randomLoveTalk(QiApiClient qiApiClient, LoveRequest request) throws ApiException {
+    public LoveResponse randomLoveTalk(QiApiClient qiApiClient) throws ApiException {
+        LoveRequest request = new LoveRequest();
         return request(qiApiClient, request);
     }
 

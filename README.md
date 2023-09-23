@@ -32,7 +32,7 @@ qiapisdk
 
 - **[Qi-API 接口开放平台 🔗](https://api.qimuu.icu/)**
 - **[Qi-API-DOC 开发者文档 📖](https://doc.qimuu.icu/)**
-- **[Qi-API-SDK-demo ✔️](https://github.com/qimu666/qi-api-sdk-demo)**
+- **[Qi-API-SDK-demo ✔️](https://github.com/qimu666/qi-api-sdk-demo/blob/master/src/main/java/icu/qimuu/qiapisdkdemo/controller/InvokeController.java)**
 
 ###  快速开始 🚀
 
@@ -44,7 +44,7 @@ qiapisdk
 <dependency>
    <groupId>icu.qimuu</groupId>
    <artifactId>qi-api-sdk</artifactId>
-   <version>0.0.3</version>
+   <version>0.0.4</version>
 </dependency>   
 ```
 
@@ -102,11 +102,11 @@ qiapisdk
     private ApiService apiService;
    ```
 
-#### 5. 发起请求
+#### 5. 发起请求示例
 
 示例：随机毒鸡汤
 
-- 示例一
+- 示例一 ：**通过配置文件 推荐👍**
 
 ```java
 try {
@@ -117,7 +117,7 @@ try {
 }
 ```
 
-- 示例二
+- 示例二 ：主动注入
 ```java
 try {
     QiApiClient qiApiClient = new QiApiClient("你的 accessKey", "你的 secretKey");
@@ -128,7 +128,7 @@ try {
 }
 ```
 
- 响应：
+响应：
 
 ```json
 {
@@ -136,19 +136,19 @@ try {
 }
 ```
 
-**搭配[EasyWeb](https://github.com/qimu666/EasyWeb)示例：**
+**搭配[EasyWeb](https://github.com/qimu666/EasyWeb)示例：推荐👍**
 
 ```java
-@GetMapping("/getPoisonousChickenSoupNotSetKey")
-public BaseResponse<PoisonousChickenSoupResponse> getPoisonousChickenSoupNotSetKey() {
-    PoisonousChickenSoupResponse poisonousChickenSoup = null;
-    try {
+@GetMapping("/getPoisonousChickenSoup")
+public BaseResponse<PoisonousChickenSoupResponse> getPoisonousChickenSoup() {
+        PoisonousChickenSoupResponse poisonousChickenSoup = null;
+        try {
         poisonousChickenSoup = apiService.getPoisonousChickenSoup();
-    } catch (ApiException e) {
+        } catch (ApiException e) {
         throw new ApiException(e.getCode(), e.getMessage());
-    }
-    return ResultUtils.success(poisonousChickenSoup);
-}
+        }
+        return ResultUtils.success(poisonousChickenSoup);
+        }
 ```
 
 响应示例：
@@ -162,8 +162,8 @@ public BaseResponse<PoisonousChickenSoupResponse> getPoisonousChickenSoupNotSetK
   "message": "ok"
 }
 ```
-
-###  更多接口详见[Qi-API-DOC 开发者文档](https://doc.qimuu.icu/)
+- **更多示例详见：[Qi-API-SDK-Demo 示例项目](https://github.com/qimu666/qi-api-sdk-demo/blob/master/src/main/java/icu/qimuu/qiapisdkdemo/controller/InvokeController.java)**
+- **更多接口详见：[Qi-API-DOC 开发者文档](https://doc.qimuu.icu/)**
 
 ### 贡献 🤝
 

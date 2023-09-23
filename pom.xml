@@ -11,7 +11,7 @@
     <name>qi-api-sdk</name>
     <groupId>icu.qimuu</groupId>
     <artifactId>qi-api-sdk</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 
     <description>Qi-API 接口开放平台开发者工具包</description>
     <properties>
