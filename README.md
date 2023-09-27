@@ -81,13 +81,10 @@ qiapisdk
         client:
           access-key: 你的 accessKey
           secret-key: 你的 secretKey
-    #EasyWeb配置，使用EasyWeb需要配置以下
-    spring:
-      mvc:
-        path match:
-          matching-strategy: ant_path_matcher
+          # 本地网关地址，可修改为自己的网关，用于本地测试，线上网关地址等，不配置默认平台的网关
+         # host: http://localhost:8090/api
     ```
-  
+    
   - properties
   
     ```properties
